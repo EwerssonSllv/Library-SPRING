@@ -55,4 +55,32 @@ public class LibraryService {
                 new RuntimeException("Library not found"));
         return new HashSet<>(library.getBooksSet().values());
     }
+
+    public void updateBookInLibrary(Integer libraryId, Books updatedBook) {
+        Library library = libraryRepository.findById(libraryId).orElseThrow(() ->
+                new RuntimeException("Library not found"));
+        library.getBooksSet().put(updatedBook.getId(), updatedBook);
+        libraryRepository.save(library);
+    }
+
+    public void updateUserInLibrary(Integer libraryId, User updatedUser) {
+        Library library = libraryRepository.findById(libraryId).orElseThrow(() ->
+                new RuntimeException("Library not found"));
+        library.getUserSet().put(updatedUser.getId(), updatedUser);
+        libraryRepository.save(library);
+    }
+
+    public void deleteBookFromLibrary(Integer libraryId, Integer bookId) {
+        Library library = libraryRepository.findById(libraryId).orElseThrow(() ->
+                new RuntimeException("Library not found"));
+        library.getBooksSet().remove(bookId);
+        libraryRepository.save(library);
+    }
+
+    public void deleteUserFromLibrary(Integer libraryId, Integer userId) {
+        Library library = libraryRepository.findById(libraryId).orElseThrow(() ->
+                new RuntimeException("Library not found"));
+        library.getUserSet().remove(userId);
+        libraryRepository.save(library);
+    }
 }

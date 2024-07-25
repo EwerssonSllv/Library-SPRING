@@ -20,5 +20,20 @@ public class BookService {
     public Optional<Books> getBookById(Integer id) {
         return bookRepository.findById(id);
     }
+
+    public void deleteBookById(Integer id) {
+        bookRepository.deleteById(id);
+    }
+
+    public Books updateBook(Integer id, Books updatedBook) {
+        Books book = bookRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+        book.setTitle(updatedBook.getTitle());
+        book.setAuthor(updatedBook.getAuthor());
+        book.setReleaseYear(updatedBook.getReleaseYear());
+        return bookRepository.save(book);
+    }
+
+
 }
 
